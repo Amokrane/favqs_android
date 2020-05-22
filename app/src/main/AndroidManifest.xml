@@ -14,7 +14,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".ui.QuotesActivity"
+            android:name=".ui.ProfileActivity"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <activity android:name=".ui.SplashActivity">

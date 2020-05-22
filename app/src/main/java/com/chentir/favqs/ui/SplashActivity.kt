@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.chentir.favqs.DependencyProvider
 import com.chentir.favqs.R
-import com.chentir.favqs.data.local.UserSessionEntity
+import com.chentir.favqs.data.entities.UserSessionEntity
 import com.chentir.favqs.ui.viewmodels.SplashViewModel
 import com.chentir.favqs.ui.viewmodels.factories.SplashViewModelFactory
 
@@ -14,6 +14,7 @@ class SplashActivity : AppCompatActivity() {
   private lateinit var viewModel: SplashViewModel
   private lateinit var viewModelFactory: SplashViewModelFactory
 
+  // FIXME: Add an animation
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_splash)
@@ -30,9 +31,11 @@ class SplashActivity : AppCompatActivity() {
       intent = if (t == null) {
         Intent(this, LoginActivity::class.java)
       } else {
-        Intent(this, QuotesActivity::class.java)
+        Intent(this, ProfileActivity::class.java)
       }
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       startActivity(intent)
+      finish()
     })
   }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chentir.favqs.data.local.UserSessionDao
-import com.chentir.favqs.data.local.UserSessionEntity
+import com.chentir.favqs.data.entities.UserSessionEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

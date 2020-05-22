@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.chentir.favqs.data.entities.UserSession
+import com.chentir.favqs.data.entities.UserSessionEntity
 import com.chentir.favqs.data.repositories.AuthenticationRepository
 import com.chentir.favqs.data.utils.Lce
 import com.chentir.favqs.data.utils.Status
@@ -15,13 +15,15 @@ class LoginViewModel(private val authenticationRepository: AuthenticationReposit
   fun createSession(
     username: String,
     password: String
-  ): LiveData<Lce<UserSession>> {
-    val userLiveData = MutableLiveData<Lce<UserSession>>()
+  ): LiveData<Lce<UserSessionEntity>> {
+    val userLiveData = MutableLiveData<Lce<UserSessionEntity>>()
 
     viewModelScope.launch(Dispatchers.IO) {
       val resource = authenticationRepository.authenticate(username, password)
       when (resource.status) {
-        Status.SUCCESS -> userLiveData.postValue(Lce.Success(resource.data!!))
+        Status.SUCCESS -> {
+          userLiveData.postValue(Lce.Success(resource.data!!))
+        }
         Status.ERROR -> userLiveData.postValue(Lce.Error(resource.message!!))
       }
     }
