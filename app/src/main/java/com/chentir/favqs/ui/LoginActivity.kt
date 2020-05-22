@@ -12,6 +12,7 @@ import com.chentir.favqs.data.entities.UserSession
 import com.chentir.favqs.data.utils.Lce
 import com.chentir.favqs.databinding.ActivityLoginBinding
 import com.chentir.favqs.ui.viewmodels.LoginViewModel
+import com.chentir.favqs.ui.viewmodels.factories.LoginViewModelFactory
 import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
@@ -28,7 +29,10 @@ class LoginActivity : AppCompatActivity() {
 
         // TODO: refactor
         val authenticationRepository = DependencyProvider.provideAuthenticationRepository()
-        viewModelFactory = LoginViewModelFactory(authenticationRepository)
+        viewModelFactory =
+            LoginViewModelFactory(
+                authenticationRepository
+            )
         viewModel = viewModelFactory.create(LoginViewModel::class.java)
 
         binding.actionLogin.setOnClickListener {
@@ -43,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 when (it) {
                     is Lce.Error -> {
                         Timber.d("Login error ${it.message}")
-                        Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT)
+                        Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
                     }
                     is Lce.Success -> {
                         Timber.d("Login success ${it.data}")
