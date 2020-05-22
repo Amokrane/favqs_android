@@ -4,7 +4,6 @@ import com.chentir.favqs.data.entities.UserEntity
 import retrofit2.http.GET
 import retrofit2.http.Header
 
-
 interface GetUserService {
   @GET("api/users/")
   suspend fun getUser(
