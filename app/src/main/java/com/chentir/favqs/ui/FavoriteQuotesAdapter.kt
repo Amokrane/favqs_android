@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chentir.favqs.R
 import com.chentir.favqs.data.entities.QuoteEntity
 
-class QuotesAdapter(
+class FavoriteQuotesAdapter(
   private val quotes: MutableList<QuoteEntity>,
   private val prefetchDistance: Int,
   private val fetchNextPage: (Int) -> Unit
 ) :
-    ListAdapter<QuoteEntity, QuotesAdapter.QuotesViewHolder>(
+    ListAdapter<QuoteEntity, FavoriteQuotesAdapter.QuotesViewHolder>(
         object : DiffUtil.ItemCallback<QuoteEntity>() {
           override fun areItemsTheSame(
             oldItem: QuoteEntity,

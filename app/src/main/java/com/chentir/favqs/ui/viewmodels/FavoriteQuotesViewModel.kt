@@ -11,7 +11,7 @@ import com.chentir.favqs.data.utils.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class QuotesViewModel(private val quotesRepository: QuotesRepository) : ViewModel() {
+class FavoriteQuotesViewModel(private val quotesRepository: QuotesRepository) : ViewModel() {
   fun getQuotes(page: Int, username: String): LiveData<Lce<Quotes>> {
     val liveData = MutableLiveData<Lce<Quotes>>()
     viewModelScope.launch(Dispatchers.IO) {

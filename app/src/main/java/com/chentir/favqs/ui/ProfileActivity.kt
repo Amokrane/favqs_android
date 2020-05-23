@@ -51,7 +51,7 @@ class ProfileActivity : AppCompatActivity() {
           binding.imgProfilePicture.load(userEntityResult.data.picUrl)
 
           binding.actionViewQuotes.setOnClickListener {
-            val intent = Intent(this, QuotesActivity::class.java)
+            val intent = Intent(this, FavoriteQuotesActivity::class.java)
             intent.putExtra(EXTRA_USERNAME, userEntityResult.data.login)
             startActivity(intent)
           }
