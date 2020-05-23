@@ -2,6 +2,8 @@ package com.chentir.favqs
 
 import android.content.Context
 import androidx.room.Room
+import com.chentir.favqs.data.entities.QuoteEntity
+import com.chentir.favqs.data.entities.Quotes
 import com.chentir.favqs.data.local.FavqsDatabase
 import com.chentir.favqs.data.local.QuotesDao
 import com.chentir.favqs.data.local.UserSessionDao
@@ -11,6 +13,9 @@ import com.chentir.favqs.data.repositories.UserRepository
 import com.chentir.favqs.data.services.CreateSessionService
 import com.chentir.favqs.data.services.GetQuotesService
 import com.chentir.favqs.data.services.GetUserService
+import com.chentir.favqs.utils.ConnectivityHelper
+import com.dropbox.android.external.store4.Store
+import com.dropbox.android.external.store4.StoreBuilder
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -34,7 +39,8 @@ object DependencyProvider {
   fun provideQuotesRepository(applicationContext: Context): QuotesRepository {
     return QuotesRepository(
         provideGetQuotesService(),
-        provideQuotesDao(applicationContext)
+        provideQuotesDao(applicationContext),
+        provideConnectivityHelper(applicationContext)
     )
   }
 
@@ -81,6 +87,10 @@ object DependencyProvider {
         FavqsDatabase::class.java, "favqs_db"
     )
         .build()
+  }
+
+  private fun provideConnectivityHelper(applicationContext: Context): ConnectivityHelper {
+    return ConnectivityHelper(applicationContext)
   }
 
 }
