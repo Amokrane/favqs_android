@@ -15,7 +15,6 @@ class SplashActivity : AppCompatActivity() {
   private lateinit var viewModel: SplashViewModel
   private lateinit var viewModelFactory: SplashViewModelFactory
 
-  // FIXME: Add an animation
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_splash)
