@@ -11,7 +11,6 @@ import com.chentir.favqs.data.utils.Lce
 import com.chentir.favqs.databinding.ActivityLoginBinding
 import com.chentir.favqs.ui.viewmodels.LoginViewModel
 import com.chentir.favqs.ui.viewmodels.factories.LoginViewModelFactory
-import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
   private lateinit var binding: ActivityLoginBinding
@@ -57,5 +56,4 @@ class LoginActivity : AppCompatActivity() {
     super.startActivity(intent)
     overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out)
   }
-
 }
