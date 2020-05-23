@@ -13,7 +13,6 @@ import com.chentir.favqs.ui.viewmodels.QuotesViewModel
 import com.chentir.favqs.ui.viewmodels.factories.QuotesViewModelFactory
 
 class QuotesActivity : AppCompatActivity() {
-
   private lateinit var binding: ActivityQuotesBinding
   private lateinit var viewModel: QuotesViewModel
   private lateinit var viewModeFactory: QuotesViewModelFactory
@@ -43,17 +42,20 @@ class QuotesActivity : AppCompatActivity() {
         }
         is Lce.Success -> {
           val fetchNextPage: (Int) -> Unit = { nextPage ->
-            if (nextPage <= 25) {
-              val liveDataNextPage = viewModel.getQuotes(nextPage)
-              liveDataNextPage.observe(this, Observer { nextPageLiveData ->
-                quotesAdapter.addQuotes(nextPageLiveData.data!!)
+            val liveDataNextPage = viewModel.getQuotes(nextPage)
+            liveDataNextPage.observe(this, Observer { nextQuotesResource ->
+              nextQuotesResource.data?.let { nextQuotes ->
+                quotesAdapter.addQuotes(nextQuotes.quotes)
+                if (nextQuotes.lastPage) {
+                  quotesAdapter.stopPaging()
+                }
                 quotesAdapter.notifyDataSetChanged()
-              })
-            }
+              }
+            })
           }
 
           quotesAdapter = QuotesAdapter(
-              it.data.toMutableList(), prefetchDistance = 1, fetchNextPage = fetchNextPage
+              it.data.quotes.toMutableList(), prefetchDistance = 1, fetchNextPage = fetchNextPage
           )
 
           binding.listQuotes.adapter = quotesAdapter

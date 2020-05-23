@@ -32,6 +32,7 @@ class QuotesAdapter(
     ) {
 
   private var currentPage = 1
+  private var stopPaging = false
 
   class QuotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val quoteText: TextView = itemView.findViewById(R.id.quote_text)
@@ -53,7 +54,7 @@ class QuotesAdapter(
     holder: QuotesViewHolder,
     position: Int
   ) {
-    if (position == itemCount - prefetchDistance - 1) {
+    if (position == itemCount - prefetchDistance - 1 && !stopPaging) {
       fetchNextPage(++currentPage)
     }
 
@@ -67,4 +68,9 @@ class QuotesAdapter(
   fun addQuotes(quotes: List<QuoteEntity>) {
     this.quotes.addAll(quotes)
   }
+
+  fun stopPaging() {
+    this.stopPaging = true
+  }
+
 }
