@@ -30,6 +30,10 @@ class ProfileActivity : AppCompatActivity() {
       ProfileViewModelFactory(DependencyProvider.provideUserRepository(applicationContext))
 
     viewModel = viewModeFactory.create(ProfileViewModel::class.java)
+  }
+
+  override fun onStart() {
+    super.onStart()
     val liveData = viewModel.fetchUser()
     liveData.observe(this, Observer { userEntityResult ->
       when (userEntityResult) {
