@@ -45,7 +45,7 @@ class QuotesActivity : AppCompatActivity() {
             val liveDataNextPage = viewModel.getQuotes(nextPage)
             liveDataNextPage.observe(this, Observer { nextQuotesResource ->
               nextQuotesResource.data?.let { nextQuotes ->
-                quotesAdapter.addQuotes(nextQuotes.quotes)
+                quotesAdapter.addQuotes(nextQuotes.quoteEntities)
                 if (nextQuotes.lastPage) {
                   quotesAdapter.stopPaging()
                 }
@@ -55,7 +55,7 @@ class QuotesActivity : AppCompatActivity() {
           }
 
           quotesAdapter = QuotesAdapter(
-              it.data.quotes.toMutableList(), prefetchDistance = 1, fetchNextPage = fetchNextPage
+              it.data.quoteEntities.toMutableList(), prefetchDistance = 1, fetchNextPage = fetchNextPage
           )
 
           binding.listQuotes.adapter = quotesAdapter

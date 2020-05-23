@@ -3,6 +3,7 @@ package com.chentir.favqs
 import android.content.Context
 import androidx.room.Room
 import com.chentir.favqs.data.local.FavqsDatabase
+import com.chentir.favqs.data.local.QuotesDao
 import com.chentir.favqs.data.local.UserSessionDao
 import com.chentir.favqs.data.repositories.AuthenticationRepository
 import com.chentir.favqs.data.repositories.QuotesRepository
@@ -32,12 +33,17 @@ object DependencyProvider {
 
   fun provideQuotesRepository(applicationContext: Context): QuotesRepository {
     return QuotesRepository(
-        provideGetQuotesService()
+        provideGetQuotesService(),
+        provideQuotesDao(applicationContext)
     )
   }
 
   fun provideUserSessionDao(applicationContext: Context): UserSessionDao {
     return provideDb(applicationContext).userSessionDao()
+  }
+
+  fun provideQuotesDao(applicationContext: Context): QuotesDao {
+    return provideDb(applicationContext).quotesDao()
   }
 
   private fun provideCreateSessionService(): CreateSessionService {
