@@ -5,18 +5,54 @@
     android:orientation="vertical"
     android:padding="8dp"
     >
+
   <TextView
-      android:id="@+id/quote_text"
+      android:id="@+id/label_quote_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       />
 
   <TextView
-      android:id="@+id/quote_author"
+      android:id="@+id/label_quote_author"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:textStyle="italic"
       />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginTop="4dp"
+      >
+
+    <TextView
+        android:id="@+id/label_total_upvotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"
+        />
+
+    <ImageView
+        android:layout_width="26dp"
+        android:layout_height="21dp"
+        android:src="@mipmap/ic_upvote"
+        />
+
+    <TextView
+        android:id="@+id/label_total_downvotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="14"
+        android:layout_marginLeft="8dp"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_downvote"
+        />
+  </LinearLayout>
 
 </LinearLayout>

@@ -35,8 +35,10 @@ class FavoriteQuotesAdapter(
   private var stopPaging = false
 
   class QuotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val quoteText: TextView = itemView.findViewById(R.id.quote_text)
-    val quoteAuthor: TextView = itemView.findViewById(R.id.quote_author)
+    val quoteText: TextView = itemView.findViewById(R.id.label_quote_text)
+    val quoteAuthor: TextView = itemView.findViewById(R.id.label_quote_author)
+    val totalUpvotes: TextView = itemView.findViewById(R.id.label_total_upvotes)
+    val totalDownvotes: TextView = itemView.findViewById(R.id.label_total_downvotes)
   }
 
   override fun onCreateViewHolder(
@@ -61,6 +63,8 @@ class FavoriteQuotesAdapter(
     val quote = quotes[position]
     holder.quoteText.text = quote.body
     holder.quoteAuthor.text = quote.author
+    holder.totalUpvotes.text = quote.upvotesCount.toString()
+    holder.totalDownvotes.text = quote.downvotesCount.toString()
   }
 
   override fun getItemCount(): Int = quotes.size
