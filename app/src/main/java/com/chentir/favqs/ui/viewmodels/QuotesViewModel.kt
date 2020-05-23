@@ -12,10 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class QuotesViewModel(private val quotesRepository: QuotesRepository) : ViewModel() {
-  fun getQuotes(page: Int): LiveData<Lce<Quotes>> {
+  fun getQuotes(page: Int, username: String): LiveData<Lce<Quotes>> {
     val liveData = MutableLiveData<Lce<Quotes>>()
     viewModelScope.launch(Dispatchers.IO) {
-      val resource = quotesRepository.getQuotes(page)
+      val resource = quotesRepository.getQuotes(page, username)
       when (resource.status) {
         Status.SUCCESS -> liveData.postValue(Lce.Success(resource.data!!))
         Status.ERROR -> liveData.postValue(Lce.Error(resource.message!!))

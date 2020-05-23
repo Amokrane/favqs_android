@@ -31,23 +31,24 @@ class ProfileActivity : AppCompatActivity() {
 
     viewModel = viewModeFactory.create(ProfileViewModel::class.java)
     val liveData = viewModel.fetchUser()
-    liveData.observe(this, Observer {
-      when (it) {
+    liveData.observe(this, Observer { userEntityResult ->
+      when (userEntityResult) {
         is Lce.Error -> {
-          Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT)
+          Toast.makeText(applicationContext, userEntityResult.message, Toast.LENGTH_SHORT)
               .show()
         }
         is Lce.Success -> {
-          binding.labelUsername.text = it.data.login
+          binding.labelUsername.text = userEntityResult.data.login
 
           binding.actionViewQuotes.visibility = View.VISIBLE
           binding.actionViewQuotes.text =
-            getString(R.string.action_view_quotes, it.data.quotesCount)
+            getString(R.string.action_view_quotes, userEntityResult.data.quotesCount)
 
-          binding.imgProfilePicture.load(it.data.picUrl)
+          binding.imgProfilePicture.load(userEntityResult.data.picUrl)
 
           binding.actionViewQuotes.setOnClickListener {
             val intent = Intent(this, QuotesActivity::class.java)
+            intent.putExtra(EXTRA_USERNAME, userEntityResult.data.login)
             startActivity(intent)
           }
         }

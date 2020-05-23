@@ -35,7 +35,9 @@ class QuotesActivity : AppCompatActivity() {
       QuotesViewModelFactory(DependencyProvider.provideQuotesRepository(applicationContext))
 
     viewModel = viewModeFactory.create(QuotesViewModel::class.java)
-    val liveData = viewModel.getQuotes(page = 1)
+
+    val username = intent.getStringExtra(EXTRA_USERNAME)
+    val liveData = viewModel.getQuotes(page = 1, username = username)
     liveData.observe(this, Observer {
       when (it) {
         is Lce.Error -> {
@@ -44,7 +46,7 @@ class QuotesActivity : AppCompatActivity() {
         }
         is Lce.Success -> {
           val fetchNextPage: (Int) -> Unit = { nextPage ->
-            val liveDataNextPage = viewModel.getQuotes(nextPage)
+            val liveDataNextPage = viewModel.getQuotes(page = nextPage, username = username)
             liveDataNextPage.observe(this, Observer { nextQuotesResource ->
               nextQuotesResource.data?.let { nextQuotes ->
                 quotesAdapter.addQuotes(nextQuotes.quoteEntities)

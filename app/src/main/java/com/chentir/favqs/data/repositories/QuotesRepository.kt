@@ -12,11 +12,11 @@ class QuotesRepository(
   private val quotesDao: QuotesDao,
   private val connectivityHelper: ConnectivityHelper
 ) {
-  suspend fun getQuotes(page: Int): Resource<Quotes> {
+  suspend fun getQuotes(page: Int, username: String): Resource<Quotes> {
     var quotes = Quotes(page = 0, lastPage = true, quoteEntities = listOf())
     return try {
       quotes = if (connectivityHelper.isConnected()) {
-        getQuotesFromRemote(page) ?: quotes
+        getQuotesFromRemote(page, username)  ?: quotes
       } else {
         getQuotesFromLocalDb(page) ?: quotes
       }
@@ -26,8 +26,11 @@ class QuotesRepository(
     }
   }
 
-  private suspend fun getQuotesFromRemote(page: Int): Quotes? {
-    var quotes = getQuotesService.getQuotes(page)
+  private suspend fun getQuotesFromRemote(
+    page: Int,
+    username: String
+  ): Quotes? {
+    var quotes = getQuotesService.getQuotes(page = page, filter = username, type = "user")
     val quoteEntities = quotes.quoteEntities.map { quoteEntity ->
       quoteEntity.copy(
           page = quotes.page, lastPage = quotes.lastPage
