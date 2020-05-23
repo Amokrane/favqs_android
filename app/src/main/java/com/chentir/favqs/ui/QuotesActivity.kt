@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chentir.favqs.DependencyProvider
+import com.chentir.favqs.R
 import com.chentir.favqs.data.utils.Lce
 import com.chentir.favqs.databinding.ActivityQuotesBinding
 import com.chentir.favqs.ui.viewmodels.QuotesViewModel
@@ -19,6 +20,7 @@ class QuotesActivity : AppCompatActivity() {
   private lateinit var quotesAdapter: QuotesAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
     binding = ActivityQuotesBinding.inflate(layoutInflater)
     val view = binding.root
@@ -55,7 +57,8 @@ class QuotesActivity : AppCompatActivity() {
           }
 
           quotesAdapter = QuotesAdapter(
-              it.data.quoteEntities.toMutableList(), prefetchDistance = 1, fetchNextPage = fetchNextPage
+              it.data.quoteEntities.toMutableList(), prefetchDistance = 1,
+              fetchNextPage = fetchNextPage
           )
 
           binding.listQuotes.adapter = quotesAdapter

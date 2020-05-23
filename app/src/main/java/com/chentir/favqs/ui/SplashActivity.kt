@@ -2,6 +2,7 @@ package com.chentir.favqs.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.chentir.favqs.DependencyProvider
@@ -34,8 +35,10 @@ class SplashActivity : AppCompatActivity() {
         Intent(this, ProfileActivity::class.java)
       }
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      startActivity(intent)
-      finish()
+      Handler().postDelayed({
+        startActivity(intent)
+        finish()
+      }, 500)
     })
   }
 }

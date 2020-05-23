@@ -20,6 +20,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewModeFactory: ProfileViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         val view = binding.root
