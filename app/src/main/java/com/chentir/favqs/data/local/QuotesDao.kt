@@ -1,7 +1,6 @@
 package com.chentir.favqs.data.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
@@ -9,15 +8,19 @@ import com.chentir.favqs.data.entities.QuoteEntity
 
 @Dao
 abstract class QuotesDao {
-  @Query("SELECT * FROM QuoteEntity WHERE page = :page")
-  abstract suspend fun getQuotes(page: Int): List<QuoteEntity>
+  @Query("SELECT * FROM QuoteEntity WHERE page = :page AND username = :username")
+  abstract suspend fun getQuotes(
+    page: Int,
+    username: String
+  ): List<QuoteEntity>
 
   @Transaction
   open suspend fun insert(
     quoteEntities: List<QuoteEntity>,
-    page: Int
+    page: Int,
+    username: String
   ) {
-    deleteAllQuoteEntitiesInPage(page)
+    deleteAllQuoteEntitiesInPage(page, username)
     quoteEntities.forEach {
       doInsert(it)
     }
@@ -26,6 +29,6 @@ abstract class QuotesDao {
   @Insert
   protected abstract suspend fun doInsert(quoteEntity: QuoteEntity)
 
-  @Query("DELETE FROM QuoteEntity WHERE page = :page")
-  protected abstract suspend fun deleteAllQuoteEntitiesInPage(page: Int)
+  @Query("DELETE FROM QuoteEntity WHERE page = :page AND username = :username")
+  protected abstract suspend fun deleteAllQuoteEntitiesInPage(page: Int, username: String)
 }

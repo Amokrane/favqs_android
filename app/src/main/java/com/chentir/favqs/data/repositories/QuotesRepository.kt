@@ -12,13 +12,16 @@ class QuotesRepository(
   private val quotesDao: QuotesDao,
   private val connectivityHelper: ConnectivityHelper
 ) {
-  suspend fun getQuotes(page: Int, username: String): Resource<Quotes> {
+  suspend fun getFavoriteQuotes(
+    page: Int,
+    username: String
+  ): Resource<Quotes> {
     var quotes = Quotes(page = 0, lastPage = true, quoteEntities = listOf())
     return try {
       quotes = if (connectivityHelper.isConnected()) {
-        getQuotesFromRemote(page, username)  ?: quotes
+        getFavoriteQuotesFromRemote(page, username) ?: quotes
       } else {
-        getQuotesFromLocalDb(page) ?: quotes
+        getFavoriteQuotesFromLocalDb(page, username) ?: quotes
       }
       ResponseHandler.handleSuccess(quotes)
     } catch (e: Exception) {
@@ -26,23 +29,26 @@ class QuotesRepository(
     }
   }
 
-  private suspend fun getQuotesFromRemote(
+  private suspend fun getFavoriteQuotesFromRemote(
     page: Int,
     username: String
   ): Quotes? {
     var quotes = getQuotesService.getQuotes(page = page, filter = username, type = "user")
     val quoteEntities = quotes.quoteEntities.map { quoteEntity ->
       quoteEntity.copy(
-          page = quotes.page, lastPage = quotes.lastPage
+          page = quotes.page, lastPage = quotes.lastPage, username = username
       )
     }
     quotes = quotes.copy(quoteEntities = quoteEntities)
-    quotesDao.insert(quotes.quoteEntities, page)
+    quotesDao.insert(quotes.quoteEntities, page, username)
     return quotes
   }
 
-  private suspend fun getQuotesFromLocalDb(page: Int): Quotes? {
-    val quotesEntities = quotesDao.getQuotes(page)
+  private suspend fun getFavoriteQuotesFromLocalDb(
+    page: Int,
+    username: String
+  ): Quotes? {
+    val quotesEntities = quotesDao.getQuotes(page, username)
     if (quotesEntities != null && quotesEntities.isNotEmpty()) {
       return Quotes(
           quoteEntities = quotesEntities, page = page, lastPage = quotesEntities[0].lastPage

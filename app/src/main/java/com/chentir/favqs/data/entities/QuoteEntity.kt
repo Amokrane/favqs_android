@@ -13,7 +13,8 @@ data class QuoteEntity(
   @ColumnInfo(name = "upvotes_count") @SerializedName("upvotes_count") val upvotesCount: Int,
   @ColumnInfo(name = "downvotes_count") @SerializedName("downvotes_count") val downvotesCount: Int,
   @ColumnInfo(name = "page") val page: Int = 1,
-  @ColumnInfo(name = "last_page") val lastPage: Boolean = false
+  @ColumnInfo(name = "last_page") val lastPage: Boolean = false,
+  @ColumnInfo(name = "username") val username: String
 ) {
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "id")

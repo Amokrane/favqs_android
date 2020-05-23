@@ -15,7 +15,7 @@ class QuotesViewModel(private val quotesRepository: QuotesRepository) : ViewMode
   fun getQuotes(page: Int, username: String): LiveData<Lce<Quotes>> {
     val liveData = MutableLiveData<Lce<Quotes>>()
     viewModelScope.launch(Dispatchers.IO) {
-      val resource = quotesRepository.getQuotes(page, username)
+      val resource = quotesRepository.getFavoriteQuotes(page, username)
       when (resource.status) {
         Status.SUCCESS -> liveData.postValue(Lce.Success(resource.data!!))
         Status.ERROR -> liveData.postValue(Lce.Error(resource.message!!))
