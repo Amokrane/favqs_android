@@ -1,7 +1,9 @@
 package com.chentir.favqs.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -30,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     viewModel = viewModelFactory.create(LoginViewModel::class.java)
 
     binding.actionLogin.setOnClickListener {
+      hideKeyboard()
       val liveData = viewModel.createSession(
           binding.inputUsername.text.toString(),
           binding.inputPassword.text.toString()
@@ -55,5 +58,11 @@ class LoginActivity : AppCompatActivity() {
   override fun startActivity(intent: Intent?) {
     super.startActivity(intent)
     overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out)
+  }
+
+  private fun hideKeyboard() {
+    val imm: InputMethodManager =
+      getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
   }
 }
