@@ -13,7 +13,10 @@ abstract class QuotesDao {
   abstract suspend fun getQuotes(page: Int): List<QuoteEntity>
 
   @Transaction
-  open suspend fun insert(quoteEntities: List<QuoteEntity>, page: Int) {
+  open suspend fun insert(
+    quoteEntities: List<QuoteEntity>,
+    page: Int
+  ) {
     deleteAllQuoteEntitiesInPage(page)
     quoteEntities.forEach {
       doInsert(it)

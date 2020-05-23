@@ -10,17 +10,20 @@ import com.chentir.favqs.data.utils.ResponseHandler
 import java.lang.Exception
 
 class AuthenticationRepository(
-    private val createSessionService: CreateSessionService,
-    private val userSessionDao: UserSessionDao
+  private val createSessionService: CreateSessionService,
+  private val userSessionDao: UserSessionDao
 ) {
-    suspend fun authenticate(username: String, password: String): Resource<UserSessionEntity> {
-        return try {
-            val userIdentifier = UserIdentifier(User(username, password))
-            val userSessionEntity = createSessionService.session(userIdentifier)
-            userSessionDao.insert(userSessionEntity)
-            ResponseHandler.handleSuccess(userSessionEntity)
-        } catch (e: Exception) {
-            ResponseHandler.handleException(e)
-        }
+  suspend fun authenticate(
+    username: String,
+    password: String
+  ): Resource<UserSessionEntity> {
+    return try {
+      val userIdentifier = UserIdentifier(User(username, password))
+      val userSessionEntity = createSessionService.session(userIdentifier)
+      userSessionDao.insert(userSessionEntity)
+      ResponseHandler.handleSuccess(userSessionEntity)
+    } catch (e: Exception) {
+      ResponseHandler.handleException(e)
     }
+  }
 }
