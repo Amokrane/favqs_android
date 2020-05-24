@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    >
+    android:padding="8dp">
 
   <TextView
       android:id="@+id/label_quote_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      />
+      android:text="That quote."
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
       android:id="@+id/label_quote_author"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
+      android:text="From that author."
       android:textStyle="italic"
-      />
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/label_quote_text" />
 
-  <LinearLayout
-      android:layout_width="match_parent"
+  <TextView
+      android:id="@+id/label_total_upvotes"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
       android:layout_marginTop="4dp"
-      >
+      android:text="12"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/label_quote_author" />
 
-    <TextView
-        android:id="@+id/label_total_upvotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="12"
-        />
+  <ImageView
+      android:id="@+id/icon_upvote"
+      android:layout_width="21dp"
+      android:layout_height="21dp"
+      android:layout_marginLeft="4dp"
+      android:src="@mipmap/ic_upvote"
+      app:layout_constraintLeft_toRightOf="@id/label_total_upvotes"
+      app:layout_constraintTop_toBottomOf="@id/label_quote_author" />
 
-    <ImageView
-        android:layout_width="26dp"
-        android:layout_height="21dp"
-        android:src="@mipmap/ic_upvote"
-        />
+  <TextView
+      android:id="@+id/label_total_downvotes"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:text="14"
+      app:layout_constraintLeft_toRightOf="@id/icon_upvote"
+      app:layout_constraintTop_toBottomOf="@id/label_quote_author" />
 
-    <TextView
-        android:id="@+id/label_total_downvotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="14"
-        android:layout_marginLeft="8dp"
-        />
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_downvote"
-        />
-  </LinearLayout>
-
-</LinearLayout>
+  <ImageView
+      android:id="@+id/icon_downvote"
+      android:layout_width="21dp"
+      android:layout_height="21dp"
+      android:layout_marginLeft="4dp"
+      android:src="@mipmap/ic_downvote"
+      app:layout_constraintLeft_toRightOf="@id/label_total_downvotes"
+      app:layout_constraintTop_toBottomOf="@id/label_quote_author" />
+</androidx.constraintlayout.widget.ConstraintLayout>
