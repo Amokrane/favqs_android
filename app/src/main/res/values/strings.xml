@@ -1,10 +1,17 @@
 <resources>
+  <!-- General -->
   <string name="app_name">Quotes</string>
+
+  <!-- Login screen -->
   <string name="input_username_hint">Username</string>
   <string name="input_password_hint">Password</string>
   <string name="action_login_text">Login</string>
+
+  <!-- Profile screen -->
   <string name="img_profile_picture_desc">Your profile picture</string>
   <string name="action_view_quotes">View your %d quotes</string>
+
+  <!-- FavoriteQuotes screen -->
   <string name="icon_downvote_desc">Icon representing the total upvotes for a quote</string>
   <string name="icon_upvote_desc">Icon representing the total downvotes for a quote</string>
 </resources>
