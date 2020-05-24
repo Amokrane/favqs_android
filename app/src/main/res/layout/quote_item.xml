@@ -39,6 +39,7 @@
       android:layout_height="21dp"
       android:layout_marginLeft="4dp"
       android:src="@mipmap/ic_upvote"
+      android:contentDescription="@string/icon_upvote_desc"
       app:layout_constraintLeft_toRightOf="@id/label_total_upvotes"
       app:layout_constraintTop_toBottomOf="@id/label_quote_author" />
 
@@ -57,6 +58,7 @@
       android:layout_height="21dp"
       android:layout_marginLeft="4dp"
       android:src="@mipmap/ic_downvote"
+      android:contentDescription="@string/icon_downvote_desc"
       app:layout_constraintLeft_toRightOf="@id/label_total_downvotes"
       app:layout_constraintTop_toBottomOf="@id/label_quote_author" />
 </androidx.constraintlayout.widget.ConstraintLayout>
