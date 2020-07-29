@@ -8,5 +8,4 @@ This is an Android client for the Favqs API <https://favqs.com/api>.
 
 # Improvements
 - UI/UX can be improved in many ways: loading states, error states, better display of the quotes, etc.
-- There are not tests at the moment.
-- The app is supposed to show the list of quotes of the current user. However, the relevant endpoint wasn't found. As a workaround, the endpoint that displays the list of all quotes was used instead.
+- There aren't any tests at the moment.
